@@ -1,5 +1,6 @@
 import '../App.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function SignIn() {
     const [loginInfo, setLoginInfo] = useState({
@@ -32,7 +33,9 @@ function SignIn() {
 
         <div className="buttons">
             <button name="loginButton" type="submit">Log In</button>
-            <button>Sign Up</button>
+            <Link to="/create-account">
+                <button>Sign Up</button>
+            </Link>
         </div>
      </form>
     </div>

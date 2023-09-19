@@ -5,7 +5,6 @@ body {
 
 }
 
-
 .login-container {
   display: flex;
   justify-content: center;
@@ -51,4 +50,12 @@ button:hover {
 
 button:active {
   color: whitesmoke
+}
+
+.password-match {
+  color: red;
+  font-size: small;  
+  max-width: 200px;
+  block-size: auto;
+  margin-block: 0px;
 }
