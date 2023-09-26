@@ -54,8 +54,9 @@ button:active {
 
 .password-match {
   color: red;
-  font-size: small;  
+  font-size: x-small;  
   max-width: 200px;
   block-size: auto;
   margin-block: 0px;
+  text-align: center;
 }
