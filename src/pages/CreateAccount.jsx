@@ -1,11 +1,15 @@
 import '../App.css';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+import validator from 'validator';
 
 function CreateAccount() {
+    
+    const navigate = useNavigate();
 
+    const [isValid, setIsValid] = useState(true);
     const [isMatching, setIsMatching] = useState(true);
     const [isLength, setIsLength] = useState(true);
     const [isExisting, setIsExisting] = useState(false);
@@ -17,17 +21,25 @@ function CreateAccount() {
     });
 
     const handleChange = (event) => {
+        const { email } = accountInfo;
 
         setAccountInfo(prev => ({
             ...prev,
             [event.target.name]: event.target.value
 
         }))
+        
+        if (validator.isEmail(email)) {
+            setIsValid(true);
+        } else {
+            setIsValid(false);
+        }
      
     }
     console.log(accountInfo)
 
     const handleSubmit = (event) => {
+
         const {email, password, confirm} = accountInfo;
         event.preventDefault();
         if (password === confirm) {
@@ -44,12 +56,11 @@ function CreateAccount() {
             setIsLength(true);
         }
 
-    
-
-        if (isMatching){
+        if (isMatching && isValid && isLength){
             createUserWithEmailAndPassword(auth, email, password)
             .then((useCredential) => {
                 console.log(useCredential)
+                navigate("/");
             }).catch((error) => {
                 setIsExisting(true);
                 console.log(error)
@@ -62,7 +73,7 @@ function CreateAccount() {
      <form className="login" onSubmit={handleSubmit}>
 
         <input name="email" type="text" placeholder="Email" onChange={handleChange}></input>
-
+        {isValid? null:<p className="password-match">Please use a valid email.</p>}
         <input name="password" type="password" placeholder="Password" onChange={handleChange}></input>
 
         <input name="confirm" type="password" placeholder="Confirm Password" onChange={handleChange}></input>
