@@ -55,8 +55,6 @@ function CreateAccount() {
             setIsLength(true);
         }
 
-
-    
         if (isMatching && isValid && isLength){
             createUserWithEmailAndPassword(auth, email, password)
             .then((useCredential) => {
