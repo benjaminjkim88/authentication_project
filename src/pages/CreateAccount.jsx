@@ -6,6 +6,7 @@ import { auth } from '../firebase';
 import validator from 'validator';
 
 function CreateAccount() {
+    
     const navigate = useNavigate();
 
     const [isValid, setIsValid] = useState(true);
